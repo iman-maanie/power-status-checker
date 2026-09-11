@@ -1,0 +1,625 @@
+/* =========================================================================
+   Power Status Checker — Stylesheet
+   Modern telecom customer-portal aesthetic: deep blues, clean cards,
+   soft shadows, rounded corners, and clear status colour-coding.
+   ========================================================================= */
+
+:root {
+    /* ConnectCo brand palette — white base, light-blue accent, grey neutrals */
+    --color-primary: #2f8fd6;
+    --color-primary-dark: #1f5f96;
+    --color-primary-light: #5badeb;
+    --color-accent: #8fd3ff;
+
+    /* Neutrals */
+    --color-bg: #f4f6f8;
+    --color-surface: #ffffff;
+    --color-border: #e2e6ea;
+    --color-text: #2b2f36;
+    --color-text-muted: #6b7280;
+    --color-grey-dark: #3a3f47;
+
+    /* Status colours */
+    --status-green-bg: #e8f8ef;
+    --status-green-fg: #1c9a5b;
+    --status-green-border: #b9eccf;
+
+    --status-orange-bg: #fff4e5;
+    --status-orange-fg: #c9740b;
+    --status-orange-border: #fbdba8;
+
+    --status-blue-bg: #e8f1ff;
+    --status-blue-fg: #1e5fd1;
+    --status-blue-border: #bcd6ff;
+
+    --status-red-bg: #fdecec;
+    --status-red-fg: #d3372f;
+    --status-red-border: #f7c2bf;
+
+    --status-grey-bg: #f3f4f6;
+    --status-grey-fg: #6b7280;
+    --status-grey-border: #d1d5db;
+
+    /* Effects */
+    --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+    --shadow-md: 0 8px 24px rgba(16, 24, 40, 0.08);
+    --shadow-lg: 0 16px 40px rgba(16, 24, 40, 0.12);
+    --radius-md: 14px;
+    --radius-lg: 20px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+}
+
+/* ============================ Top Navigation ============================ */
+
+.topbar {
+    background: linear-gradient(135deg, var(--color-grey-dark) 0%, var(--color-primary-dark) 100%);
+    color: #fff;
+    padding: 16px 0;
+}
+
+.topbar__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.2px;
+}
+
+.brand__mark {
+    display: inline-flex;
+    color: var(--color-accent);
+}
+
+.brand__accent {
+    color: var(--color-accent);
+}
+
+.topbar__badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 5px 12px;
+    border-radius: 999px;
+    letter-spacing: 0.3px;
+}
+
+/* ================================= Page ================================= */
+
+.page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+}
+
+/* ================================= Hero ================================= */
+
+.hero {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.6s ease both;
+}
+
+.hero__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent));
+    color: #fff;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 18px;
+}
+
+.hero__title {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    margin: 0 0 10px;
+    color: var(--color-primary-dark);
+    letter-spacing: -0.5px;
+}
+
+.hero__subtitle {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+/* ================================ Layout ================================ */
+
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+    margin-bottom: 28px;
+}
+
+@media (max-width: 800px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================================= Cards ================================= */
+
+.card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 28px;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.card__title {
+    margin: 0 0 4px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+}
+
+.card__subtitle {
+    margin: 0 0 22px;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+/* ============================== Form Card ================================ */
+
+.field {
+    margin-bottom: 18px;
+}
+
+.field label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 6px;
+}
+
+.field select {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: var(--color-text);
+    background-color: #fafbfd;
+    border: 1.5px solid var(--color-border);
+    border-radius: 10px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%235b6781'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 18px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field select:focus {
+    outline: none;
+    border-color: var(--color-primary-light);
+    box-shadow: 0 0 0 3px rgba(30, 95, 209, 0.15);
+}
+
+.field select:disabled {
+    background-color: #f0f2f6;
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+}
+
+.btn-check {
+    width: 100%;
+    margin-top: 6px;
+    padding: 15px 20px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 6px 18px rgba(11, 61, 145, 0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-check:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(11, 61, 145, 0.32);
+}
+
+.btn-check:active {
+    transform: translateY(0);
+}
+
+.btn-check:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-check__spinner {
+    width: 18px;
+    height: 18px;
+    border: 2.5px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+.form-error {
+    margin: 14px 0 0;
+    padding: 10px 14px;
+    background: var(--status-red-bg);
+    color: var(--status-red-fg);
+    border: 1px solid var(--status-red-border);
+    border-radius: 10px;
+    font-size: 0.85rem;
+}
+
+/* ============================== Result Card =============================== */
+
+.result-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 4px;
+}
+
+.result-card__header .card__title {
+    margin-bottom: 0;
+}
+
+.data-source-badge {
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.data-source-badge--live {
+    background: var(--status-green-bg);
+    color: var(--status-green-fg);
+    border: 1px solid var(--status-green-border);
+}
+
+.data-source-badge--partial {
+    background: var(--status-orange-bg);
+    color: var(--status-orange-fg);
+    border: 1px solid var(--status-orange-border);
+}
+
+.data-source-badge--unavailable {
+    background: var(--status-red-bg);
+    color: var(--status-red-fg);
+    border: 1px solid var(--status-red-border);
+}
+
+.result-card {
+    animation: fadeInUp 0.4s ease both;
+}
+
+.result-card--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    border-style: dashed;
+    background: #fbfcfe;
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--color-text-muted);
+    max-width: 280px;
+}
+
+.empty-state__icon {
+    display: inline-flex;
+    color: var(--color-primary-light);
+    opacity: 0.55;
+    margin-bottom: 12px;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.result-status {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1.5px solid var(--color-border);
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.result-status__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+}
+
+.result-status__icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Status colour variants, applied dynamically via JS */
+.result-status--green {
+    background: var(--status-green-bg);
+    border-color: var(--status-green-border);
+    color: var(--status-green-fg);
+}
+.result-status--orange {
+    background: var(--status-orange-bg);
+    border-color: var(--status-orange-border);
+    color: var(--status-orange-fg);
+}
+.result-status--blue {
+    background: var(--status-blue-bg);
+    border-color: var(--status-blue-border);
+    color: var(--status-blue-fg);
+}
+.result-status--red {
+    background: var(--status-red-bg);
+    border-color: var(--status-red-border);
+    color: var(--status-red-fg);
+}
+.result-status--grey {
+    background: var(--status-grey-bg);
+    border-color: var(--status-grey-border);
+    color: var(--status-grey-fg);
+}
+
+.result-details {
+    margin: 0 0 18px;
+    display: grid;
+    gap: 12px;
+}
+
+.result-details__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.result-details__row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.result-details dt {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    font-weight: 600;
+}
+
+.result-details dd {
+    margin: 0;
+    font-weight: 700;
+    text-align: right;
+}
+
+.result-message {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--color-text);
+    background: #f7f9fc;
+    border-left: 3px solid var(--color-primary-light);
+    padding: 12px 14px;
+    border-radius: 8px;
+}
+
+/* ================================ Info Card =============================== */
+
+.info-card {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: #f0f5ff;
+    border-color: #d6e4fb;
+}
+
+.info-card__icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #fff;
+    color: var(--color-primary-light);
+    box-shadow: var(--shadow-sm);
+}
+
+.info-card__title {
+    margin: 4px 0 6px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+}
+
+.info-card__text {
+    margin: 0 0 10px;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+.info-card__list {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    display: grid;
+    gap: 6px;
+}
+
+.info-card__muted {
+    color: var(--color-text-muted);
+    font-weight: 400;
+}
+
+/* ================================= Footer ================================= */
+
+.footer {
+    text-align: center;
+    padding: 28px 24px 40px;
+    color: var(--color-text-muted);
+    font-size: 0.82rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* =============================== Animations =============================== */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================== Reason Banner ============================ */
+
+.reason-banner {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: var(--status-grey-bg);
+    border: 1px solid var(--status-grey-border);
+    border-radius: 10px;
+}
+
+.reason-banner__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    color: var(--status-grey-fg);
+}
+
+.reason-banner__label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 3px;
+}
+
+.reason-banner__detail {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+}
+
+/* ============================== Info Card Extras ========================= */
+
+.info-card__pill {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-right: 6px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+}
+
+.info-card__pill--live {
+    background: var(--status-green-bg);
+    color: var(--status-green-fg);
+    border: 1px solid var(--status-green-border);
+}
+
+.info-card__pill--pending {
+    background: var(--status-grey-bg);
+    color: var(--status-grey-fg);
+    border: 1px solid var(--status-grey-border);
+}
+
+.info-card__note {
+    margin: 12px 0 0;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+}
+
+/* =============================== Responsive ================================ */
+
+@media (max-width: 480px) {
+    .card {
+        padding: 20px;
+    }
+
+    .topbar__badge {
+        display: none;
+    }
+}

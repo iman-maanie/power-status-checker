@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Status Checker | ConnectCo Customer Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+</head>
+<body>
+
+    <!-- ========================== Top Navigation ========================== -->
+    <header class="topbar">
+        <div class="topbar__inner">
+            <div class="brand">
+                <span class="brand__mark" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                        <path d="M13 2L3 14h7l-1 8 11-14h-7l1-6z" fill="currentColor"/>
+                    </svg>
+                </span>
+                <span class="brand__name">Meta<span class="brand__accent">com</span></span>
+            </div>
+            <span class="topbar__badge">Customer Portal</span>
+        </div>
+    </header>
+
+    <main class="page">
+
+        <!-- ============================ Hero ============================== -->
+        <section class="hero">
+            <div class="hero__icon" aria-hidden="true">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                    <path d="M13 2L3 14h7l-1 8 11-14h-7l1-6z" fill="currentColor"/>
+                </svg>
+            </div>
+            <h1 class="hero__title">Power Status Checker</h1>
+            <p class="hero__subtitle">
+                Check whether a power interruption may be affecting your internet connection.
+            </p>
+        </section>
+
+        <!-- =================== Layout: Form + Result ====================== -->
+        <section class="layout">
+
+            <!-- ----------- Location Form ----------- -->
+            <div class="card form-card">
+                <h2 class="card__title">Your Location</h2>
+                <p class="card__subtitle">Select your location to check for known power issues.</p>
+
+                <form id="power-status-form" novalidate>
+                    <div class="field">
+                        <label for="province">Province</label>
+                        <select id="province" name="province" required>
+                            <option value="" disabled selected>Select a province</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="municipality">Municipality / City</label>
+                        <select id="municipality" name="municipality" required disabled>
+                            <option value="" disabled selected>Select a province first</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="suburb">Suburb</label>
+                        <select id="suburb" name="suburb" required disabled>
+                            <option value="" disabled selected>Select a municipality first</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-check" id="check-btn">
+                        <span class="btn-check__label">Check Power Status</span>
+                        <span class="btn-check__spinner" id="btn-spinner" hidden></span>
+                    </button>
+
+                    <p class="form-error" id="form-error" hidden></p>
+                </form>
+            </div>
+
+            <!-- ----------- Result Card ----------- -->
+            <div class="card result-card" id="result-card" hidden aria-live="polite">
+                <div class="result-card__header">
+                    <h2 class="card__title">Power Status</h2>
+                    <span class="data-source-badge" id="data-source-badge" hidden></span>
+                </div>
+
+                <!-- Status pill -->
+                <div class="result-status" id="result-status">
+                    <span class="result-status__icon" id="result-icon" aria-hidden="true"></span>
+                    <span class="result-status__text" id="result-status-text">—</span>
+                </div>
+
+                <!-- Detail rows -->
+                <dl class="result-details">
+                    <div class="result-details__row">
+                        <dt>Source</dt>
+                        <dd id="result-source">—</dd>
+                    </div>
+                    <div class="result-details__row">
+                        <dt>Approx. Started</dt>
+                        <dd id="result-started">—</dd>
+                    </div>
+                    <div class="result-details__row">
+                        <dt>Estimated Restoration</dt>
+                        <dd id="result-restore">—</dd>
+                    </div>
+                </dl>
+
+                <!-- Message -->
+                <p class="result-message" id="result-message">—</p>
+
+                <!-- Reason banner — visible only when status is "Data Unavailable" -->
+                <div class="reason-banner" id="reason-banner" hidden>
+                    <svg class="reason-banner__icon" viewBox="0 0 24 24" fill="none"
+                         aria-hidden="true">
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
+                        <path d="M12 8v5" stroke="currentColor" stroke-width="1.6"
+                              stroke-linecap="round"/>
+                        <circle cx="12" cy="15.7" r="0.9" fill="currentColor"/>
+                    </svg>
+                    <div>
+                        <strong class="reason-banner__label"></strong>
+                        <p class="reason-banner__detail"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ----------- Empty State ----------- -->
+            <div class="card result-card result-card--empty" id="empty-card">
+                <div class="empty-state">
+                    <span class="empty-state__icon" aria-hidden="true">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
+                            <path d="M12 8v5" stroke="currentColor" stroke-width="1.6"
+                                  stroke-linecap="round"/>
+                            <circle cx="12" cy="15.7" r="0.9" fill="currentColor"/>
+                        </svg>
+                    </span>
+                    <p>Select your province, municipality, and suburb, then click
+                       <strong>Check Power Status</strong> to see results here.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ========================= Info Panel ========================== -->
+        <section class="card info-card">
+            <div class="info-card__icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M12 11v5.5" stroke="currentColor" stroke-width="1.6"
+                          stroke-linecap="round"/>
+                    <circle cx="12" cy="7.6" r="0.9" fill="currentColor"/>
+                </svg>
+            </div>
+            <div>
+                <h3 class="info-card__title">About this tool</h3>
+                <p class="info-card__text">
+                    Loadshedding status is retrieved live from the
+                    <strong>EskomSePush (ESP) API</strong>. Municipal fault and maintenance
+                    data integration is currently in progress. Data sources in order of priority:
+                </p>
+                <ul class="info-card__list">
+                    <li>
+                        <span class="info-card__pill info-card__pill--live">Live</span>
+                        EskomSePush (ESP) — loadshedding stages (all areas)
+                    </li>
+                    <li>
+                        <span class="info-card__pill info-card__pill--live">Live</span>
+                        City of Cape Town — electricity faults &amp; planned maintenance
+                    </li>
+                    <li>
+                        <span class="info-card__pill info-card__pill--live">Live</span>
+                        eThekwini (Durban) — medium voltage electricity faults
+                    </li>
+                    <li>
+                        <span class="info-card__pill info-card__pill--live">Live</span>
+                        Mangaung / Bloemfontein — Centlec interruption notices
+                    </li>
+                    <li>
+                        <span class="info-card__pill info-card__pill--pending">Pending</span>
+                        City of Johannesburg (City Power) — no public data available
+                    </li>
+                    <li>
+                        <span class="info-card__pill info-card__pill--pending">Pending</span>
+                        City of Tshwane, Nelson Mandela Bay &amp; other metros
+                    </li>
+                </ul>
+                <p class="info-card__note">
+                    The ESP free tier allows <strong>50 requests per day</strong>.
+                    If this limit is reached, the tool will display a "Data Unavailable"
+                    notice until midnight when the counter resets.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============================ Footer ================================ -->
+    <footer class="footer">
+        <p>
+            This tool checks for known power interruptions that may be affecting your
+            ConnectCo internet connection. For unresolved outages, contact
+            <strong>ConnectCo Support</strong>.
+        </p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
